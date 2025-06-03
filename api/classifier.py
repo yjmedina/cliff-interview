@@ -18,7 +18,7 @@ Please classify the following software license into one of these categories:
 - **Finance**
 - **Marketing**
 
-Write a short explanation of why you choose this category
+Write a 150-character explanation of why you choose this category
 """
 
 
