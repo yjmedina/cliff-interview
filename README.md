@@ -6,10 +6,10 @@ This project implements a FastAPI-based service that classifies software license
 
 The solution uses a combination of FastAPI for the web service and Open AI API for license classification. The system:
 
-1. Processes license descriptions using Groq's LLM
-2. Classifies them into predefined categories
-3. Stores results in an csv file
+1. The license descriptions are classified using GPT from OpenAI. We use prompting to tell the model to return a valid category and a 150 character explanation. This process is executed individually by each license, so we will do $n$ requests where $n$ is the number of licenses. 
+3. Stores results in an csv file, this could be improve into a real database with more time.
 4. Provides RESTful API endpoints for querying and managing classifications
+
 ## Setup and Installation
 
 1. Create a virtual environment:
@@ -56,9 +56,10 @@ pytest tests -v
 - `GET /summary`: Get aggregated metrics by category
 - `PUT /licenses/{id}`: Update a license classification
 
+Since we use a .csv file as database, updating is expensive and takes $O(n)$ time.
+
 ## Future Improvements
 I had problems using GROQ API due to an invalid API Key, so I changed to open AI since it was the fastest change available.
-
 
 If given more time, I would:
 
@@ -72,8 +73,8 @@ If given more time, I would:
 
 ## Scaling Strategy
 
-1. Implement a message queue (e.g., RabbitMQ) for async processing
-2. Use a proper database instead of csv files
+1. We can improve the process of classifying licenses using message queues. And this will become available in the API once they are processed. Adding a endpoint to the API is another valid options, but we may overload the API if we reach to many requests. 
+2. Use a proper database instead of csv files so adding, updating and deleting are efficient.
 
 ## Embeddings Strategy
 
