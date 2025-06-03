@@ -38,9 +38,16 @@ open_api_key=...
 python api/usecases.py
 ```
 
+This will write the processed liceses into `output_licenses_csv`, which was set on the .env file
+
 5. Run the application:
 ```bash
 uvicorn api.main:app --reload
+```
+
+6. Run tests:
+```bash
+pytest tests -v
 ```
 
 ## API Endpoints
